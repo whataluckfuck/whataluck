@@ -1,0 +1,132 @@
+Layout.xml
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:orientation="vertical"
+android:layout_width="match_parent"
+android:layout_height="match_parent">
+<TextView
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:text="select your subject"
+android:textStyle="bold"
+android:textSize="30dp"
+tools:ignore="HardcodedText,SpUsage" />
+<CheckBox
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:id="@+id/tam"
+android:text="Tamil"
+android:textSize="25dp"
+tools:ignore="HardcodedText,SpUsage">
+</CheckBox>
+<CheckBox
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:id="@+id/eng"
+android:text="English"
+android:textSize="25dp"
+tools:ignore="HardcodedText,SpUsage">
+</CheckBox>
+<CheckBox
+android:id="@+id/social"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:text="Social"
+android:textSize="25dp"
+tools:ignore="HardcodedText,SpUsage,TextSizeCheck">
+</CheckBox>
+<CheckBox
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:id="@+id/sci"
+android:text="Science"
+android:textSize="25dp"
+tools:ignore="HardcodedText,SpUsage">
+</CheckBox>
+<TextView
+
+android:id="@+id/gender"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:text="Select your Gender"
+android:textSize="30dp"
+android:textStyle="bold"
+tools:ignore="HardcodedText,SpUsage" />
+<RadioGroup
+android:id="@+id/rgGender"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:orientation="horizontal">
+<RadioButton
+android:id="@+id/male"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:layout_weight="1"
+android:text="Male"
+android:textSize="25dp"
+tools:ignore="HardcodedText,SpUsage,TextSizeCheck" />
+<RadioButton
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:layout_weight="1"
+android:id="@+id/female"
+android:text="Female"
+android:textSize="25dp"
+tools:ignore="HardcodedText,SpUsage" />
+</RadioGroup>
+<Button
+android:layout_width="100dp"
+android:layout_height="50dp"
+android:id="@+id/subBtn"
+android:text="Submit"
+android:gravity="center"
+android:layout_gravity="center"
+tools:ignore="HardcodedText" />
+</LinearLayout>
+MainActivity.java:
+package com.example.exercise5;
+import androidx.appcompat.app.AppCompatActivity;
+import android.annotation.SuppressLint;
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+
+import android.widget.Toast;
+public class MainActivity extends AppCompatActivity {
+String TAG=MainActivity.class.getName();
+private CheckBox tam,eng,social,sci;
+private RadioGroup gender;
+@SuppressLint({"MissingSuperCall", "MissingInflatedId"})
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+super.onCreate(savedInstanceState);
+setContentView(R.layout.layout);
+tam=findViewById(R.id.tam);
+eng=findViewById(R.id.eng);
+social=findViewById(R.id.social);
+sci=findViewById(R.id.sci);
+tam.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+@Override
+public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+Log.d(TAG,tam.getText().toString()+"status"+b);
+Toast.makeText(getApplicationContext(),tam.getText().toString()+" "+b,Toast.LENGTH_LONG).show();
+}
+});
+eng.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+@Override
+public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+Log.d(TAG,eng.getText().toString()+"status"+b);
+Toast.makeText(getApplicationContext(),eng.getText().toString()+" "+b,Toast.LENGTH_LONG).show();
+}
+});
+gender=findViewById(R.id.rgGender);
+gender.setOnCheckedChangeListener((radioGroup, i) -> {
+RadioButton radioButton=gender.findViewById(i);
+String selectedstr=radioButton.getText().toString();
+Toast.makeText(MainActivity.this, "Yourselection is"+selectedstr,Toast.LENGTH_LONG).show();});
+}
+}
