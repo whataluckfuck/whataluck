@@ -1,0 +1,135 @@
+activity_main.xml:
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context=".MainActivity">
+<EditText
+android:id="@+id/name"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:ems="10"
+android:hint="Name"
+android:inputType="textPersonName"
+android:minHeight="48dp"
+app:layout_constraintBottom_toBottomOf="parent"
+app:layout_constraintEnd_toEndOf="parent"
+app:layout_constraintHorizontal_bias="0.497"
+app:layout_constraintStart_toStartOf="parent"
+app:layout_constraintTop_toTopOf="parent"
+app:layout_constraintVertical_bias="0.179"
+android:importantForAutofill="no"
+tools:ignore="HardcodedText" />
+<Button
+android:id="@+id/login"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="LOGIN"
+app:layout_constraintBottom_toBottomOf="parent"
+app:layout_constraintEnd_toEndOf="parent"
+app:layout_constraintHorizontal_bias="0.498"
+app:layout_constraintStart_toStartOf="parent"
+app:layout_constraintTop_toBottomOf="@+id/name"
+app:layout_constraintVertical_bias="0.413"
+
+tools:ignore="HardcodedText" />
+<EditText
+android:id="@+id/pwd"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:ems="10"
+android:hint="Password"
+android:inputType="textPassword"
+app:layout_constraintBottom_toBottomOf="parent"
+app:layout_constraintEnd_toEndOf="parent"
+app:layout_constraintHorizontal_bias="0.497"
+app:layout_constraintStart_toStartOf="parent"
+app:layout_constraintTop_toTopOf="parent"
+app:layout_constraintVertical_bias="0.37"
+tools:ignore="Autofill,HardcodedText,TouchTargetSizeCheck" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+activity_sndpg.xml:
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context=".secondpg">
+<TextView
+android:id="@+id/result"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="@string/textview1"
+android:textSize="30sp"
+app:layout_constraintBottom_toBottomOf="parent"
+app:layout_constraintEnd_toEndOf="parent"
+app:layout_constraintHorizontal_bias="0.494"
+app:layout_constraintStart_toStartOf="parent"
+app:layout_constraintTop_toTopOf="parent"
+app:layout_constraintVertical_bias="0.224"
+android:textColor="@color/black"/>
+<TextView
+android:id="@+id/textView2"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="Welcome!"
+
+app:layout_constraintBottom_toBottomOf="parent"
+app:layout_constraintEnd_toEndOf="parent"
+app:layout_constraintHorizontal_bias="0.498"
+app:layout_constraintStart_toStartOf="parent"
+app:layout_constraintTop_toTopOf="parent"
+app:layout_constraintVertical_bias="0.141"
+android:textSize="30sp"
+android:textColor="@color/black"
+tools:ignore="HardcodedText" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+MainActivity.java:
+package com.example.login;
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.EditText;
+import androidx.appcompat.app.AppCompatActivity;
+public class MainActivity extends AppCompatActivity {
+public static final String EXTRA_TEXT =
+"com.example.application.example.EXTRA_TEXT";
+Button but;
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+super.onCreate(savedInstanceState);
+setContentView(R.layout.activity_main);
+but = findViewById(R.id.login);
+but.setOnClickListener(v -> activity2());
+}
+public void activity2(){
+EditText editTextName= findViewById(R.id.name);
+String text =editTextName.getText().toString();
+Intent intent = new Intent(this, secondpg.class);
+intent.putExtra(EXTRA_TEXT,text);
+startActivity(intent);
+}
+}
+Secondpage.java:
+package com.example.login;
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.TextView;
+import androidx.appcompat.app.AppCompatActivity;
+public class secondpg extends AppCompatActivity {
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+super.onCreate(savedInstanceState);
+setContentView(R.layout.activity_secondpg);
+
+Intent intent= getIntent();
+String text= intent.getStringExtra(com.example.login.MainActivity.EXTRA_TEXT);
+TextView res= findViewById(R.id.result);
+res.setText(text);
+}
+}
